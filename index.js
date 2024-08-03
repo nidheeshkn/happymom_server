@@ -199,6 +199,9 @@ app.get("/api/fees", feesController.feesData);
 
 app.get("/api/subscriber/home", authenticate, subscribersController.subscribersHome);
 
+app.get("/api/subscriber/viewSubscriber", authenticate, subscribersController.viewSubscribersHome);
+
+
 app.get("/api/subscriber/view", authenticate, subscribersController.viewSubscriber);
 
 app.get("/api/subscriber/profile", authenticate, subscribersController.myProfile);
