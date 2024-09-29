@@ -66,17 +66,21 @@ async function viewSubscribersHome(req, res) {
   // const subscribers_data = await Subscribers.findAll();
   // Getting user data for the person who send the registration link
   const user_data = await Users.findOne({ where: { id: req.user.userId } });
-  console.log(user_data);
   user_data.password = null;
+  console.log(user_data);
+
+  const subscriber_user_data = await Users.findOne({ where: { id: subscriberId } });
+
   const subscriber_data = await Subscribers.findOne({
     where: { subscriber_id: subscriberId },
   });
-  // console.log(subscriber_data);
+  console.log("subscriberData");
+  console.log(subscriber_data);
   const subordinate_data = await Subscribers.findAll({
     where: { parent_id: subscriber_data.subscriber_id },
   });
   // console.log(subordinate_data);
-  res.json({ subscriber_data, subordinate_data, user_data });
+  res.json({ subscriber_data,subscriber_user_data , subordinate_data, user_data });
 }
 
 async function viewSubscriber(req, res) {

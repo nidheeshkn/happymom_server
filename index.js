@@ -154,6 +154,14 @@ app.post("/api/users/readrequest", passwordResetController.getRequest);
 
 app.post("/api/users/passwordreset", passwordResetController.doReset);
 
+// This is for resetting password after user login
+
+app.post("/api/users/resetmypassword",authenticate, passwordResetController.resetMyPassword);
+
+// This is for resetting password by administrator
+
+app.post("/api/users/resetUserPassword",authenticate, passwordResetController.resetUserPassword);
+
 
 // app.use(auth)
 
@@ -170,21 +178,19 @@ app.post("/api/user/updatemyemail",authenticate,  usersController.updateEmail);
 //     Call to usersController      ends here ....................++++++++++++++++++++++++++++++++++
 
 
-// This is for resetting password after user login
 
-app.post("/api/users/resetmypassword",authenticate, passwordResetController.resetMyPassword);
 
 
 //     Call to positionsController      begins here ....................++++++++++++++++++++++++++++++++++
 
-app.get("/api/positions", authenticate, positionsController.positionsData);
+// app.get("/api/positions", authenticate, positionsController.positionsData);
 
 
-app.post("/api/positions/addPosition", authenticate, positionsController.addPosition);
+// app.post("/api/positions/addPosition", authenticate, positionsController.addPosition);
 
-app.post("/api/positions/updatePosition", authenticate, positionsController.updatePosition);
+// app.post("/api/positions/updatePosition", authenticate, positionsController.updatePosition);
 
-app.get("/api/positions", authenticate, positionsController.positionsData);
+// app.get("/api/positions", authenticate, positionsController.positionsData);
 
 
 //     Call to positionsController      ends here ....................++++++++++++++++++++++++++++++++++

@@ -12,6 +12,72 @@ require('dotenv').config();
 const saltRounds = 10;
 
 
+
+async function resetUserPassword(req, res) {
+
+  // This function is to reset password of a user by Administrator
+  console.log("inside resetUserPassword");
+  console.log(req.body);
+
+
+  try {
+
+    const user_data = await Users.findOne({where: {id: req.user.userId}});
+
+
+    console.log(user_data);
+
+    if (user_data.id === 10001) {
+
+      try {
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+          bcrypt.hash(req.body.newpassword, salt, function (err, hash) {
+            // Store hash in your password DB.
+            if (err) {
+              return res.status(500).json({status: "failed", message: "Something went wrong... "})
+            } else {
+              (async function () {
+                let new_user = await Users.update({
+
+                      password: hash,
+
+                    }
+
+                    , {
+                      where: {
+                        id: req.body.user_id
+                      }
+                    }
+                );
+                return res.json({status: "success", message: "password saved successfuly"})
+
+
+              })();
+            }
+
+          });
+        });
+
+
+      } catch (error) {
+        return res.status(500).json({status: "Internal server error"})
+      }
+
+    } else {
+
+      console.log(error);
+      return res.status(500).json({status: "failed", message: "You are not Authorized to reset password..."});
+
+    }
+
+
+  } catch (error) {
+
+    console.log(error);
+    return res.status(500).json({status: "failed", message: "Unexpected Server error, couldn't reset password..."});
+  }
+}
+
 async function resetMyPassword(req, res) {
 
   // This function is to reset password of a user without sending email
@@ -298,4 +364,4 @@ function generateRandomString(length) {
 }
 
 
-module.exports = { requestData, addRequest, doReset, getRequest, resetMyPassword }
+module.exports = { requestData, addRequest, doReset, getRequest, resetMyPassword, resetUserPassword }

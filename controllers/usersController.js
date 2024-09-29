@@ -167,7 +167,9 @@ async function userRegistration(req, res) {
 
                     console.log("New user's auto-generated ID:", new_user.id);
 
-                    let today = new Date().toLocaleDateString()
+                    let today = new Date().toLocaleDateString();
+
+
 
                     console.log(today)
                     let new_subscriber = await Subscribers.create({
