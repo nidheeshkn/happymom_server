@@ -58,9 +58,10 @@ async function distributeBonus(new_subscriber, fee_data) {
 
   let my_boss = await Subscribers.findOne({ where: { subscriber_id: new_subscriber.subscriber_id } });
   // console.log(my_boss);
-  const total_incentive_percentage = 40;
+  // const total_incentive_percentage = 40;  //55
+  const total_incentive_percentage = 55;  //55
   let incentive_allotted = 0;
-  let incentive_percentage = 15;
+  let incentive_percentage = 20;
   let last_paid_incentive_percentage = 0;
   let last_paid_subscriber_id;
   let incentive=0;
@@ -101,7 +102,7 @@ async function distributeBonus(new_subscriber, fee_data) {
       });
       incentive_allotted = incentive_allotted + incentive_percentage;
 
-      incentive_percentage = incentive_percentage - 5;
+      incentive_percentage = incentive_percentage - 5; 
       last_paid_incentive = incentive;
       last_paid_subscriber_id = my_boss.subscriber_id;
       i--;
