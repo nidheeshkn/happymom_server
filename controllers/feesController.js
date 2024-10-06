@@ -219,6 +219,22 @@ async function feesData(req, res) {
   res.send(fees_data)
 }
 
+
+async function getData() {
+
+  const fees_data = await FeePayments.findAll(
+    { 
+      where: { 
+        subscriber_id: my_boss.parent_id 
+      } 
+    }
+
+  );
+  console.log(fees_data);
+  res.send(fees_data)
+}
+
+
 async function addData(row) {
 
 
@@ -315,14 +331,17 @@ async function addData(row) {
     const user_data = await Users.findOne({ where: { mobile_number: mobileNumber } });
     console.log(user_data);
 
-    await Users.update({
-      email: fixedData.Email_Id,
-    },
-      {
-        where: {
-          id: user_data.id  
-        }
-      });
+    if (user_data !== null){
+      await Users.update({
+        email: fixedData.Email_Id,
+      },
+        {
+          where: {
+            id: user_data.id  
+          }
+        });
+    }    
+
 
   }
 }
