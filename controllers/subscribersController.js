@@ -3,6 +3,34 @@ const Users = require("../models/user");
 const url = require('url');
 
 
+async function addIncentive2Subscriber(user_id,amount) {
+  console.log("addIncentive2Subscriber");
+  console.log(user_id);
+  console.log(amount);
+
+  try {
+
+    const subscriberData = await Subscribers.findOne({ where: { subscriber_id: user_id } });
+    var gross_amount = Number(subscriberData.gross_wallet) + Number(amount);
+    var wallet_amount = Number(subscriberData.wallet_balance) + Number(amount);
+
+    const subscriberUpdated=await Subscribers.update({
+          wallet_balance: wallet_amount,
+          gross_wallet: gross_amount,
+        },
+        {
+          where: {
+            subscriber_id: user_id
+          }
+        });
+    return (subscriberUpdated);
+
+  } catch (error) {
+    return null;
+  }
+}
+
+
 async function updateMe(req, res) {
   console.log("profile");
   console.log(req.user);
@@ -120,4 +148,5 @@ module.exports = {
   viewSubscriber,
   myProfile,
   updateMe,
+  addIncentive2Subscriber
 };

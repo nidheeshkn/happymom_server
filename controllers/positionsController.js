@@ -1,4 +1,4 @@
-const Position = require('../models/position')
+const Position = require('../models/position');
 
 
 async function getAll(req, res) {
@@ -45,6 +45,8 @@ async function searchByNumber(req, res) {
 }
 
 async function add(req, res) {
+
+  console.log(req.body);
   const position_data = await Position.create({
     position_name: req.body.position_name,
     position_rank: req.body.position_rank,

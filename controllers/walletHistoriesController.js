@@ -1,9 +1,37 @@
 
-const wallet = require('../models/wallet')
+const wallet = require('../models/wallet');
 const Subscribers = require('../models/subscriber');
 const Users = require('../models/user');
 
 
+
+
+async function getAll(req, res) {
+
+  const data = await wallet.findAll();
+  console.log(data);
+  res.send(data)
+}
+
+
+async function addIncentiveHistory(incentive,userId, description) {
+  console.log("inside addIncentiveHistory");
+  try {
+    let new_entry = await wallet.create({
+      incentive_id:incentive.incentiveType,
+      subscriber_id:incentive.user_id,
+      credit:incentive.amount,
+      added_by:userId,
+      description:description,
+    });
+    console.log(new_entry);
+    return new_entry;
+  }catch (e) {
+    return false;
+  }
+
+
+}
 
 
 async function walletData(req, res) {
@@ -40,40 +68,8 @@ async function myWallet(req, res) {
   }
 }
 
-  //   async function addPosition(req, res) {
-
-  //     console.log(req.session.session_id)
-  //     const position_data = await Position.create({
-  //       position_name: req.body.position_name,
-  //       position_rank: req.body.position_rank,
-  //       total_subscribers: req.body.total_subscribers
-  //     });
-  //     Position.sync();
-  //     console.log("new positions auto-generated ID:", position_data.position_id);
-  //     // const  position_data = await Position.findAll();
-  //     // const result = await User.findOne({ where: { mobile_number: req.body.mobile_number } });
-  //     console.log(position_data);
-  //     res.send(position_data)
-
-  //   }
 
 
-  //   async function updatePosition(req, res) {
 
-  //     console.log(req.session.session_id)
 
-  //     const position_data = await Position.update({
-  //       position_name: req.body.position_name,
-  //       position_rank: req.body.position_rank,
-  //       total_subscribers: req.body.total_subscribers,
-  //       where: {
-  //         position_name: req.body.position_id
-  //       }
-  //     });
-  //     Position.sync();
-  //     console.log(position_data);
-  //     res.send(position_data)
-
-  //   }
-
-  module.exports = { walletData, myWallet }
+  module.exports = { walletData, myWallet,getAll,addIncentiveHistory };
