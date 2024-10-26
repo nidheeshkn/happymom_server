@@ -11,15 +11,16 @@ const xlsx = require('xlsx');
 // Option 3: Passing parameters separately (other dialects)
 
 const User = require("./models/user");
-const Subscribers = require('./models/subscriber')
-const positionsController = require("./controllers/positionsController")
-const feesController = require("./controllers/feesController")
-const usersController = require("./controllers/usersController")
+const Subscribers = require('./models/subscriber');
+const positionsController = require("./controllers/positionsController");
+const feesController = require("./controllers/feesController");
+const usersController = require("./controllers/usersController");
 const subscribersController = require("./controllers/subscribersController");
 const WalletHistories = require('./models/wallet');
 const walletHistoriesController = require("./controllers/walletHistoriesController");
 const coursesController = require("./controllers/coursesController");
-const passwordResetController= require("./controllers/passwordResetController")
+const passwordResetController= require("./controllers/passwordResetController");
+const incentivesController= require("./controllers/incentivesController");
 
 
 const app = express();
@@ -50,7 +51,7 @@ function authenticate(req, res, next) {
 
   // if(req.url)
   console.log(req.url);
-  console.log(req.headers);
+  console.log(req.body);
 
   const token = req.headers.authorization;
 
@@ -181,19 +182,6 @@ app.post("/api/user/updatemyemail",authenticate,  usersController.updateEmail);
 
 
 
-//     Call to positionsController      begins here ....................++++++++++++++++++++++++++++++++++
-
-// app.get("/api/positions", authenticate, positionsController.positionsData);
-
-
-// app.post("/api/positions/addPosition", authenticate, positionsController.addPosition);
-
-// app.post("/api/positions/updatePosition", authenticate, positionsController.updatePosition);
-
-// app.get("/api/positions", authenticate, positionsController.positionsData);
-
-
-//     Call to positionsController      ends here ....................++++++++++++++++++++++++++++++++++
 
 
 
@@ -219,6 +207,42 @@ app.post("/api/subscriber/update_me", authenticate, subscribersController.update
 app.get("/api/walletDetails", authenticate, walletHistoriesController.myWallet);
 
 app.get("/api/courses", authenticate, coursesController.courseList);
+
+
+// Call to incentivesController      begins here ....................++++++++++++++++++++++++++++++++++
+
+app.get("/api/incentives/getAll", authenticate, incentivesController.getAll);
+
+
+app.post("/api/incentives/add", authenticate, incentivesController.add);
+//
+app.post("/api/incentives/update", authenticate, incentivesController.update);
+
+
+app.post("/api/incentives/pay", authenticate, incentivesController.payIncentive);
+
+//
+// app.get("/api/positions", authenticate, incentivesController.positionsData);
+
+
+// Call to incentivesController      ends here ....................++++++++++++++++++++++++++++++++++
+
+
+//
+//     Call to positionsController      begins here ....................++++++++++++++++++++++++++++++++++
+//
+app.get("/api/positions/getAll", authenticate, positionsController.getAll);
+//
+app.post("/api/positions/add", authenticate, positionsController.add);
+//
+app.post("/api/positions/update", authenticate, positionsController.update);
+//
+// app.get("/api/positions", authenticate, positionsController.positionsData);
+//
+//
+//     Call to positionsController      ends here ....................++++++++++++++++++++++++++++++++++
+
+
 
 
 

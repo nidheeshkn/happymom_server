@@ -1,4 +1,4 @@
-const Incentive = require('../models/incentive');
+const Model = require('../models/incentive');
 
 
 const walletHistoriesController = require("../controllers/walletHistoriesController");
@@ -8,16 +8,16 @@ const subscribersController = require("../controllers/subscribersController");
 
 async function getAll(req, res) {
 
-  const data = await Incentive.findAll();
+  const data = await Model.findAll();
   console.log(data);
   res.send(data)
 }
 
 async function getById(req, res) {
 
-  const data = await Incentive.findOne({
+  const data = await Model.findOne({
     where: {
-      position_id: req.body.position_id
+      id: req.body.id
     }
   });
   console.log(data);
@@ -27,9 +27,9 @@ async function getById(req, res) {
 
 async function searchByString(req, res) {
 
-  const data = await Incentive.findOne({
+  const data = await Model.findOne({
     where: {
-      position_name: req.body.position_id
+      name: req.body.name
     }
   });
   console.log(data);
@@ -40,9 +40,9 @@ async function searchByString(req, res) {
 
 async function searchByNumber(req, res) {
 
-  const data = await Incentive.findOne({
+  const data = await Model.findOne({
     where: {
-      position_name: req.body.position_id
+      id: req.body.id
     }
   });
   console.log(data);
@@ -52,12 +52,12 @@ async function searchByNumber(req, res) {
 async function add(req, res) {
 
   console.log(req.body);
-  const data = await Incentive.create({
+  const data = await Model.create({
     name: req.body.name,
     description: req.body.description,
   });
-  Incentive.sync();
-  console.log("new positions auto-generated ID:", data.id);
+  Model.sync();
+  console.log("new auto-generated ID:", data.id);
   console.log(data);
   res.send(data)
 }
@@ -66,7 +66,7 @@ async function add(req, res) {
 async function update(req, res) {
   console.log(req.body);
 
-  const data = await Incentive.update({
+  const data = await Model.update({
     name: req.body.name,
     description: req.body.description,
   },{
@@ -74,7 +74,7 @@ async function update(req, res) {
       id: req.body.id
     }
   });
-  Incentive.sync();
+  Model.sync();
   console.log(data);
   res.send(data)
 }
@@ -82,7 +82,7 @@ async function update(req, res) {
 
 async function payIncentive(req, res) {
   console.log(req.body);
-  const data = await Incentive.findOne({
+  const data = await Model.findOne({
     where: {
       id: req.body.incentiveType,
     }
@@ -98,4 +98,4 @@ await subscribersController.addIncentive2Subscriber(req.body.user_id,req.body.am
 
 
 
-  module.exports={getAll,getById,searchByString,searchByNumber,add,update,payIncentive}
+  module.exports={getAll,getById,searchByString,searchByNumber,add,update,payIncentive};
