@@ -8,6 +8,10 @@ const WalletHistories = db.define('wallet_histories', {
         autoIncrement:true
 
     },
+    incentive_id:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+    },
     subscriber_id:{
         type:DataTypes.INTEGER,
         allowNull:false,

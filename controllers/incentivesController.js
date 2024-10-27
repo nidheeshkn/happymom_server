@@ -82,13 +82,13 @@ async function update(req, res) {
 
 async function payIncentive(req, res) {
   console.log(req.body);
-  const data = await Model.findOne({
+  const incentiveData = await Model.findOne({
     where: {
       id: req.body.incentiveType,
     }
   });
-  console.log(data);
-await walletHistoriesController.addIncentiveHistory(req.body,req.user.userId, data.name);
+  console.log(incentiveData);
+await walletHistoriesController.addIncentiveHistory(req.body,req.user.userId, incentiveData);
 await subscribersController.addIncentive2Subscriber(req.body.user_id,req.body.amount);
   console.log(req.body);
   res.send(req.body)

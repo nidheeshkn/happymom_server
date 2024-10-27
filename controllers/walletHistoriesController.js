@@ -14,19 +14,23 @@ async function getAll(req, res) {
 }
 
 
-async function addIncentiveHistory(incentive,userId, description) {
+async function addIncentiveHistory(incentive,userId, incentiveData) {
   console.log("inside addIncentiveHistory");
+
+  // console.log(incentiveData);
+  // console.log(incentiveData.id);
   try {
     let new_entry = await wallet.create({
-      incentive_id:incentive.incentiveType,
+      incentive_id:incentiveData.id,
       subscriber_id:incentive.user_id,
       credit:incentive.amount,
       added_by:userId,
-      description:description,
+      description:incentiveData.name,
     });
     console.log(new_entry);
     return new_entry;
   }catch (e) {
+    console.log(e);
     return false;
   }
 
