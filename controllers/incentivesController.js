@@ -82,20 +82,28 @@ async function update(req, res) {
 
 async function payIncentive(req, res) {
   console.log(req.body);
-  const incentiveData = await Model.findOne({
-    where: {
-      id: req.body.incentiveType,
+  try {
+    const incentiveData = await Model.findOne({
+      where: {
+        id: req.body.incentiveType,
+      }
+    });
+    console.log(incentiveData);
+    const walletUpdate = await subscribersController.addIncentive2Subscriber(req.body.user_id, req.body.amount);
+
+    if(walletUpdate){
+      const historyUpdate = await walletHistoriesController.addIncentiveHistory(req.body,req.user.userId, incentiveData);
     }
-  });
-  console.log(incentiveData);
-await walletHistoriesController.addIncentiveHistory(req.body,req.user.userId, incentiveData);
-await subscribersController.addIncentive2Subscriber(req.body.user_id,req.body.amount);
-  console.log(req.body);
-  res.send(req.body)
+    res.send({walletUpdate, "message":"Incentives paid successfully"});
+  }catch (e) {
+    console.log(e);
+    return false;
+  }
+
 }
 
 
 
 
 
-  module.exports={getAll,getById,searchByString,searchByNumber,add,update,payIncentive};
+module.exports={getAll,getById,searchByString,searchByNumber,add,update,payIncentive};

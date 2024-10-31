@@ -16,7 +16,6 @@ const positionsController = require("./controllers/positionsController");
 const feesController = require("./controllers/feesController");
 const usersController = require("./controllers/usersController");
 const subscribersController = require("./controllers/subscribersController");
-const WalletHistories = require('./models/wallet');
 const walletHistoriesController = require("./controllers/walletHistoriesController");
 const coursesController = require("./controllers/coursesController");
 const passwordResetController= require("./controllers/passwordResetController");
@@ -206,7 +205,6 @@ app.post("/api/subscriber/update_me", authenticate, subscribersController.update
 
 app.get("/api/walletDetails", authenticate, walletHistoriesController.myWallet);
 
-app.get("/api/courses", authenticate, coursesController.courseList);
 
 
 // Call to incentivesController      begins here ....................++++++++++++++++++++++++++++++++++
@@ -230,6 +228,20 @@ app.post("/api/incentives/pay", authenticate, incentivesController.payIncentive)
 
 //
 //     Call to positionsController      begins here ....................++++++++++++++++++++++++++++++++++
+//
+app.get("/api/positions/getAll", authenticate, positionsController.getAll);
+//
+app.post("/api/positions/add", authenticate, positionsController.add);
+//
+app.post("/api/positions/update", authenticate, positionsController.update);
+//
+// app.get("/api/positions", authenticate, positionsController.positionsData);
+//
+//
+//     Call to positionsController      ends here ....................++++++++++++++++++++++++++++++++++
+
+
+//     Call to coursesController      begins here ....................++++++++++++++++++++++++++++++++++
 //
 app.get("/api/positions/getAll", authenticate, positionsController.getAll);
 //

@@ -1,30 +1,86 @@
-
-const wallet = require('../models/wallet')
-const Subscribers = require('../models/subscriber');
-const Users = require('../models/user');
+const Model = require('../models/course');
 
 
+async function getAll(req, res) {
 
-
-async function courseList(req, res) {
-
-  console.log(req.user);
-
-  // req.user.userId=req.body.subscriber_id;
-  if (req.user.userId) {
-    const user_data = await Users.findOne({ where: { id: req.user.userId } });
-    console.log(user_data);
-    user_data.password=null;
-    
-    res.json({user_data});
-  } else {
-
-    res.json({ message: "invalid User" });
-
-
-  }
+  const data = await Model.findAll();
+  console.log(data);
+  res.send(data)
 }
 
- 
+async function getById(req, res) {
 
-  module.exports = {  courseList }
+  const data = await Model.findOne({
+    where: {
+      position_id: req.body.position_id
+    }
+  });
+  console.log(data);
+  res.send(data)
+}
+
+
+async function searchByString(req, res) {
+
+  const data = await Model.findOne({
+    where: {
+      position_name: req.body.position_id
+    }
+  });
+  console.log(data);
+  res.send(data)
+}
+
+
+
+async function searchByNumber(req, res) {
+
+  const data = await Model.findOne({
+    where: {
+      position_name: req.body.position_id
+    }
+  });
+  console.log(data);
+  res.send(data)
+}
+
+async function add(req, res) {
+
+  console.log(req.body);
+  const data = await Model.create({
+    position_name: req.body.position_name,
+    position_rank: req.body.position_rank,
+    gross_wallet: req.body.gross_wallet,
+    total_subscribers: req.body.total_subscribers
+  });
+  Model.sync();
+  console.log("new auto-generated ID:", data.position_id);
+  console.log(data);
+  res.send(data)
+}
+
+
+async function update(req, res) {
+  const data = await Model.update({
+    position_name: req.body.position_name,
+    position_rank: req.body.position_rank,
+    gross_wallet: req.body.gross_wallet,
+    total_subscribers: req.body.total_subscribers
+  },{
+    where: {
+      position_id: req.body.position_id
+    }
+  });
+  Model.sync();
+  console.log(data);
+  res.send(data)
+}
+
+
+
+
+
+
+
+
+  module.exports={getAll,getById,searchByString,searchByNumber,add,update};

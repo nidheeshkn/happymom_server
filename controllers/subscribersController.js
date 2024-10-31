@@ -23,10 +23,10 @@ async function addIncentive2Subscriber(user_id,amount) {
             subscriber_id: user_id
           }
         });
-    return (subscriberUpdated);
+    return subscriberUpdated;
 
   } catch (error) {
-    return null;
+    return false;
   }
 }
 
