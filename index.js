@@ -203,7 +203,10 @@ app.post("/api/subscriber/update_me", authenticate, subscribersController.update
 
 
 
-app.get("/api/walletDetails", authenticate, walletHistoriesController.myWallet);
+app.get("/api/myWallet", authenticate, walletHistoriesController.myWallet);
+
+app.post("/api/walletDetails", authenticate, walletHistoriesController.userWallet);
+
 
 
 
