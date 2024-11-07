@@ -2,7 +2,7 @@ const {  DataTypes } = require('sequelize');
 const db=require("./db");
 
 const withdrawalRequests = db.define('withdrawal_requests', {
-    request_id:{
+    id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true
@@ -13,14 +13,16 @@ const withdrawalRequests = db.define('withdrawal_requests', {
         allowNull:false,
     },
     request_amount:{
-        type:DataTypes.STRING,
+        type:DataTypes.INTEGER,
         allowNull:false,
-       
+    },
+    request_type:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
     },
     gross_amount:{
         type:DataTypes.STRING,
         allowNull:false,
-        
     },
     current_balance:{
         type:DataTypes.STRING,
@@ -32,24 +34,28 @@ const withdrawalRequests = db.define('withdrawal_requests', {
         allowNull:false,
         
     },
-    allowed_amount:{
+    approved_amount:{
         type:DataTypes.STRING,
         allowNull:false,
         
+    },
+    approved_by:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
     },
     request_date:{
         type:DataTypes.DATE,
         allowNull:false,
     },
     request_status:{
-        type:DataTypes.STRING,
+        type:DataTypes.INTEGER,
         allowNull:false,
     },
-    transsaction_id:{
+    transaction_id:{
         type:DataTypes.STRING,
         allowNull:true,
     },
-    transferd_date:{
+    transaction_date:{
         type:DataTypes.DATE,
         allowNull:true,
        
