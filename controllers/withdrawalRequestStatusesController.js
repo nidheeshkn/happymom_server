@@ -68,7 +68,7 @@ async function update(req, res) {
     active: req.body.active,
   },{
     where: {
-      position_id: req.body.position_id
+      id: req.body.id
     }
   });
   Model.sync();
