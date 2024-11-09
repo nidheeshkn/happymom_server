@@ -20,6 +20,8 @@ const walletHistoriesController = require("./controllers/walletHistoriesControll
 const coursesController = require("./controllers/coursesController");
 const passwordResetController= require("./controllers/passwordResetController");
 const incentivesController= require("./controllers/incentivesController");
+const withdrawalRequestTypesController= require("./controllers/withdrawalRequestTypesController");
+const withdrawalRequestStatusesController= require("./controllers/withdrawalRequestStatusesController");
 
 
 const app = express();
@@ -216,14 +218,12 @@ app.get("/api/incentives/getAll", authenticate, incentivesController.getAll);
 
 
 app.post("/api/incentives/add", authenticate, incentivesController.add);
-//
+
 app.post("/api/incentives/update", authenticate, incentivesController.update);
 
 
 app.post("/api/incentives/pay", authenticate, incentivesController.payIncentive);
 
-//
-// app.get("/api/positions", authenticate, incentivesController.positionsData);
 
 
 // Call to incentivesController      ends here ....................++++++++++++++++++++++++++++++++++
@@ -244,18 +244,28 @@ app.post("/api/positions/update", authenticate, positionsController.update);
 //     Call to positionsController      ends here ....................++++++++++++++++++++++++++++++++++
 
 
-//     Call to coursesController      begins here ....................++++++++++++++++++++++++++++++++++
-//
-app.get("/api/positions/getAll", authenticate, positionsController.getAll);
-//
-app.post("/api/positions/add", authenticate, positionsController.add);
-//
-app.post("/api/positions/update", authenticate, positionsController.update);
-//
-// app.get("/api/positions", authenticate, positionsController.positionsData);
-//
-//
-//     Call to positionsController      ends here ....................++++++++++++++++++++++++++++++++++
+//     Call to withdrawalRequestStatusesController      begins here ....................++++++++++++++++++++++++++++++++++
+
+app.get("/api/withdrawalRequestStatuses/getAll", authenticate, withdrawalRequestStatusesController.getAll);
+
+app.post("/api/withdrawalRequestStatuses/add", authenticate, withdrawalRequestStatusesController.add);
+
+app.post("/api/withdrawalRequestStatuses/update", authenticate, withdrawalRequestStatusesController.update);
+
+//     Call to withdrawalRequestStatusesController      ends here ....................++++++++++++++++++++++++++++++++++
+
+
+
+//     Call to withdrawalRequestTypesController      begins here ....................++++++++++++++++++++++++++++++++++
+
+app.get("/api/withdrawalRequestTypes/getAll", authenticate, withdrawalRequestTypesController.getAll);
+
+app.post("/api/withdrawalRequestTypes/add", authenticate, withdrawalRequestTypesController.add);
+
+app.post("/api/withdrawalRequestTypes/update", authenticate, withdrawalRequestTypesController.update);
+
+
+//     Call to withdrawalRequestTypesController      ends here ....................++++++++++++++++++++++++++++++++++
 
 
 
