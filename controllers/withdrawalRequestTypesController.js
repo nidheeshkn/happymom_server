@@ -1,4 +1,4 @@
-const Model = require('../models/position');
+const Model = require('../models/withdrawalRequestTypes');
 
 
 async function getAll(req, res) {
@@ -48,13 +48,13 @@ async function add(req, res) {
 
   console.log(req.body);
   const data = await Model.create({
-    position_name: req.body.position_name,
-    position_rank: req.body.position_rank,
-    gross_wallet: req.body.gross_wallet,
-    total_subscribers: req.body.total_subscribers
+    title: req.body.title,
+    description: req.body.description,
+    added_by: req.user.userId,
+    active: req.body.active
   });
   Model.sync();
-  console.log("new auto-generated ID:", data.position_id);
+  console.log("new auto-generated ID:", data.id);
   console.log(data);
   res.send(data)
 }
@@ -62,13 +62,13 @@ async function add(req, res) {
 
 async function update(req, res) {
   const data = await Model.update({
-    position_name: req.body.position_name,
-    position_rank: req.body.position_rank,
-    gross_wallet: req.body.gross_wallet,
-    total_subscribers: req.body.total_subscribers
+    title: req.body.title,
+    description: req.body.description,
+    added_by: req.user.userId,
+    active: req.body.active
   },{
     where: {
-      position_id: req.body.position_id
+      id: req.body.id
     }
   });
   Model.sync();
