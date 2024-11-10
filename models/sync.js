@@ -9,12 +9,21 @@ const passwordRequests = require('./resetRequest');
 const withdrawalRequests = require('./withdrawalRequest');
 const Incentives=require('./incentive');
 const course=require('./course');
+const WR_types=require('./withdrawalRequestTypes');
+const WR_statuses=require('./withdrawalRequestStatuses');
 
 
 
 
-course.sync();
-// Incentives.sync({alter:true});
+
+// WR_types.sync();
+// WR_types.sync({alter:true});
+
+// WR_statuses.sync();
+// WR_statuses.sync({alter:true});
+
+// course.sync();
+// course.sync({alter:true});
 
 
 // Incentives.sync();
